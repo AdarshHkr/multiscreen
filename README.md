@@ -28,7 +28,7 @@
 <ol>
   <li>
     <strong>Clone the repository:</strong>
-    <pre><code>git clone &lt;your-repository-url&gt;
+    <pre><code>git clone https://github.com/AdarshHkr/multiscreen.git;
 cd livekit-multiscreen</code></pre>
   </li>
   <li>
