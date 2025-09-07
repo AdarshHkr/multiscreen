@@ -1,0 +1,42 @@
+// livekit-multiscreen/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id                    String   @id @default(cuid())
+  username              String
+  password              String
+  roomName              String
+  isWaitingRoomEnabled  Boolean  @default(false)
+  isActive              Boolean  @default(true)
+  endedAt               DateTime?
+  createdAt             DateTime @default(now())
+  waitingUsers          WaitingUser[]
+}
+
+model WaitingUser {
+  id        String   @id @default(cuid())
+  username  String
+  roomName  String
+  createdAt DateTime @default(now())
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@unique([username, roomName])
+}
+
+model AdmittedUser {
+  id        String   @id @default(cuid())
+  username  String
+  roomName  String
+  createdAt DateTime @default(now())
+
+  @@unique([username, roomName])
+}
