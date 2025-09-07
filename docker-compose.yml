@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  # Your Next.js Application, now exposed directly
+  app:
+    build: .
+    restart: always
+    env_file:
+      - .env  # Loads environment variables from the .env file
+    ports:
+      - "80:3000" # Maps port 80 on your machine to port 3000 in the container
