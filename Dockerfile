@@ -38,6 +38,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
 
+RUN chmod +x ./entrypoint.sh
+
 # CRITICAL FIX: Copy the prisma folder into the final image.
 # This is required for the migration command in entrypoint.sh to work.
 COPY --from=builder /app/prisma ./prisma
