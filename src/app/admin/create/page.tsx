@@ -3,12 +3,14 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
 
 export default function AdminCreatePage() {
   const [adminName, setAdminName] = useState('');
   const [password, setPassword] = useState('');
   const [roomName, setRoomName] = useState('');
-  const [isWaitingRoomEnabled, setIsWaitingRoomEnabled] = useState(true); // Default to true
+  // The isWaitingRoomEnabled state is kept for functionality but the UI element is removed per the design.
+  const [isWaitingRoomEnabled, setIsWaitingRoomEnabled] = useState(true);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -26,7 +28,7 @@ export default function AdminCreatePage() {
           username: adminName,
           password,
           roomName,
-          isWaitingRoomEnabled, // Send the correct state
+          isWaitingRoomEnabled,
         }),
       });
 
@@ -45,54 +47,79 @@ export default function AdminCreatePage() {
     }
   };
 
-  return (
-    <main className="flex min-h-[calc(100vh-68px)] flex-col items-center justify-center p-6 sm:p-24 bg-gray-900 text-white">
-      <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-md border border-gray-700">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-100">Create Room</h1>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="adminName" className="block text-sm font-medium text-gray-300">
-              admin name
-            </label>
-            <input id="adminName" type="text" value={adminName} onChange={(e) => setAdminName(e.target.value)} required className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md"/>
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              password
-            </label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md"/>
-          </div>
-          <div>
-            <label htmlFor="roomName" className="block text-sm font-medium text-gray-300">
-              roomname
-            </label>
-            <input id="roomName" type="text" value={roomName} onChange={(e) => setRoomName(e.target.value)} required className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md"/>
-          </div>
-          <div className="flex items-center">
+  return (<>
+    <Header></Header>
+
+    <main >
+     <div className="createRoomContainer"> {/* Renamed class */}
+      <div className="form_area">
+        <p className="title">Create a new room</p>
+
+        <form onSubmit={handleSubmit}>
+          {/* Room Name Input */}
+          <div className="form_group">
+            <label className="sub_title" htmlFor="roomName">Room Name</label>
             <input
-              id="waiting-room"
-              type="checkbox"
-              checked={isWaitingRoomEnabled}
-              onChange={(e) => setIsWaitingRoomEnabled(e.target.checked)}
-              className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+              id="roomName"
+              type="text"
+              // value={roomName}
+              // onChange={(e) => setRoomName(e.target.value)}
+              required
+              className="form_style"
+              placeholder="Enter a room name"
             />
-            <label htmlFor="waiting-room" className="ml-2 block text-sm text-gray-300">
-              Enable Waiting Room
-            </label>
           </div>
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          <button type="submit" disabled={isLoading} className="w-full flex justify-center py-2 px-4 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-            {isLoading ? 'Creating Room...' : 'create room'}
-          </button>
+
+          {/* Password Input */}
+          <div className="form_group">
+            <label className="sub_title" htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              // value={password}
+              // onChange={(e) => setPassword(e.target.value)}
+              className="form_style"
+              placeholder="Enter a password (optional)"
+            />
+          </div>
+
+          {/* Admin Name Input */}
+          <div className="form_group">
+            <label className="sub_title" htmlFor="adminName">Your Name</label>
+            <input
+              id="adminName"
+              type="text"
+              // value={adminName}
+              // onChange={(e) => setAdminName(e.target.value)}
+              required
+              className="form_style"
+              placeholder="Enter your name"
+            />
+          </div>
+          
+          <div>
+            <button
+              type="submit"
+              // disabled={isLoading}
+              className="btn"
+            >
+              {/* {isLoading ? 'Creating...' : 'Create Room'} */}
+              Create Room
+            </button>
+            
+            {/* Error message with updated color for dark theme */}
+            {/* {error && <p style={{color: '#F87171', fontSize: '14px', marginTop: '-15px'}}>{error}</p>} */}
+
+            <p>
+              Already have a room?
+              <Link href="/admin/login" className="link">
+                Login
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className="text-center mt-6">
-          <Link href="/admin/login" className="text-sm text-indigo-400 hover:text-indigo-300">
-            Already have a room? Login.
-          </Link>
-        </div>
       </div>
-    </main>
+    </div>
+    </main></>
   );
 }
