@@ -1,24 +1,28 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '@/components/Header'; // Import the new Header component
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";   // ✅ must be here
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Multi-Screen LiveKit App',
-  description: 'Real-time multi-screen collaboration with LiveKit and Next.js',
+  title: "Ghar-se-Kaam",
+  description: "Seamless Screen Sharing – Connect with your team instantly and securely.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-900 text-white min-h-screen`}>
-        <Header /> {/* Use the new Header component */}
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        />
+      </head>
+      <body className={`${inter.className} bg-black text-white`}>
         {children}
       </body>
     </html>
