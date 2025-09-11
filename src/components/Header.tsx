@@ -1,20 +1,24 @@
 import Link from 'next/link';
+import NextImage from 'next/image';
+// Import the CSS module
+
 
 export default function Header() {
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center border-b border-gray-700">
-      <div className="flex items-center">
-        {/* Simple Hamburger Icon */}
-        <div className="mr-4 text-2xl cursor-pointer">☰</div>
-        <Link href="/" className="text-xl font-bold">
-          GHAR-se-KAAM
-        </Link>
-      </div>
-      <div className="flex items-center">
-        {/* Sign In / Login */}
-        <Link href="/admin/login" className="flex items-center text-sm">
-          SIGN_IN/LOGIN
-          <span className="ml-2 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center"></span>
+    // Apply the 'header' class from the CSS module
+    <header className="header">
+      {/* Apply the 'container' class */}
+      <div className="container">
+        {/* Apply the 'logoLink' class */}
+        <Link href="/" className="logoLink">
+          <NextImage
+            src="/logo.png" // Added a placeholder source
+            alt="Ghar Se Kaam Logo"
+            width={120}
+            height={120}
+            // Apply the 'logoImage' class
+            className="logoImage"
+          />
         </Link>
       </div>
     </header>
